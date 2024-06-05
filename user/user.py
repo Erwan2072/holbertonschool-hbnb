@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+"""create class user"""
+
 class User:
     def __init__(self, email, password, first_name, last_name):
         self._email = email
@@ -5,7 +8,7 @@ class User:
         self._first_name = first_name
         self._last_name = last_name
 
-    # Getters
+    """Getters"""
     def get_email(self):
         return self._email
 
@@ -18,7 +21,7 @@ class User:
     def get_last_name(self):
         return self._last_name
 
-    # Setters
+    """Setters"""
     def set_email(self, email):
         self._email = email
 
@@ -31,6 +34,6 @@ class User:
     def set_last_name(self, last_name):
         self._last_name = last_name
 
-    # Method to verify password
+     """Method to verify password"""
     def verify_password(self, password):
         return self._password == password
