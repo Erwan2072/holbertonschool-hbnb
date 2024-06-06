@@ -34,6 +34,6 @@ class User:
     def set_last_name(self, last_name):
         self._last_name = last_name
 
-     """Method to verify password"""
+    """Method to verify password"""
     def verify_password(self, password):
         return self._password == password
