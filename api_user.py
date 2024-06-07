@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Contains the API endpoints, defining routes and operations on users"""
 
 
 from flask import request
@@ -17,6 +18,11 @@ class UserList(Resource):
     @ns.doc('list_users')
     @ns.marshal_list_with(user_model)
     def get(self):
+        """
+        Retrieve a list of all users.
+        Returns a list of user objects with status code 200.
+        """
+
         return get_users(), 200
 
     @ns.doc('create_user')
@@ -25,6 +31,12 @@ class UserList(Resource):
     @ns.response(400, 'Invalid data')
     @ns.response(409, 'Email already exists')
     def post(self):
+        """
+        Create a new user.
+        Expects a JSON payload with email, first_name, and last_name.
+        Validates the input and checks for uniqueness of the email.
+        Returns the created user object with status code 201.
+        """
         data = request.json
         if not validate_email(data['email']):
             return {'message': 'Invalid email format'}, 400
@@ -42,6 +54,10 @@ class User(Resource):
     @ns.doc('get_user')
     @ns.marshal_with(user_model)
     def get(self, user_id):
+        """
+        Retrieve details of a specific user by ID.
+        Returns the user object with status code 200 if found, else 404.
+        """
         user = find_user(user_id, get_users())
         if not user:
             return {'message': 'User not found'}, 404
@@ -54,6 +70,13 @@ class User(Resource):
     @ns.response(404, 'User not found')
     @ns.response(409, 'Email already exists')
     def put(self, user_id):
+        """
+        Update an existing user by ID.
+        Expects a JSON payload with email, first_name, and last_name.
+        Validates the input and checks for uniqueness of the email.
+        Returns the updated user object with status code 200 if successful, else 404 or 409.
+        """
+
         user = find_user(user_id, get_users())
         if not user:
             return {'message': 'User not found'}, 404
@@ -71,9 +94,12 @@ class User(Resource):
     @ns.doc('delete_user')
     @ns.response(204, 'User deleted successfully')
     def delete(self, user_id):
+        """
+        Delete a user by ID.
+        Returns status code 204 if successful, else 404.
+        """
         user = find_user(user_id, get_users())
         if not user:
             return {'message': 'User not found'}, 404
         delete_user(user)
         return '', 204
-
