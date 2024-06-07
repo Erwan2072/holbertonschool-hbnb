@@ -1,6 +1,7 @@
 import unittest
 import json
 from app import app
+from cc import Countries, Country, CitiesByCountry, CityList, City
 
 class TestApp(unittest.TestCase):
 
