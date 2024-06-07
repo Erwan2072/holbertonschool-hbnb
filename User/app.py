@@ -3,7 +3,7 @@
 
 from flask import Flask
 from flask_restx import Api
-from api_user import ns as user_namespace
+from User.api_user import ns as user_namespace
 
 """Create the Flask application instance"""
 app = Flask(__name__)
