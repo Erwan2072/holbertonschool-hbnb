@@ -5,7 +5,7 @@ class for cherch of country and city
 
 
 from data_country_city import european_countries, cities_dict
-
+from data_country_city import european_countries_check, city_ceck
 
 class Country_city:
     """ """
@@ -27,16 +27,6 @@ class Country_city:
                 raise ValueError("This city is not in the list of cities\
                                   for the selected country.")
 
-# Test de la classe Country_city avec des données d'entrée
-"""
-try:
-    test_city = Country_city("France", "Paris")
-    print("Country:", test_city._Country_city__country)
-    print("City:", test_city._Country_city__city)
-except Exception as e:
-    print("An error occurred:", e)
-"""
-
 
 class get_Country_city:
     """
@@ -54,7 +44,8 @@ class get_Country_city:
         self.__get_city = get_city
 
         # Check if the country is in the list of European countries
-        if self.__get_country not in european_countries:
+        if self.__get_country not in european_countries\
+              and self.__get_country in european_countries_check:
             european_countries.append(self.__get_country)
 
         # Update the cities_dict with the new country if added
@@ -62,3 +53,5 @@ class get_Country_city:
             cities_dict[self.__get_country] = [self.__get_city]
         else:
             cities_dict[self.__get_country].append(self.__get_city)
+
+

@@ -21,7 +21,7 @@ class Countries(Resource):
     def get(self):
         return jsonify(countries)
 
-@app.route('/countries/<string:country_code>', methods=['GET'])
+@api.route('/countries/<string:country_code>', methods=['GET'])
 class Country(Resource):
     def get(self, country_code):
         country = next((country for country in countries if country["code"] == country_code), None)
