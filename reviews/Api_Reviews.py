@@ -2,8 +2,8 @@
 
 from flask import Flask, request
 from flask_restx import Api, Resource, fields
-from model_place import PlaceModel # Import du modèle de lieu
-from persistance_place import data_store # Import du magasin de données
+from Model_Reviews import PlaceModel # Import du modèle de lieu
+from Persistance_Reviews import data_store # Import du magasin de données
 
 app = Flask(__name__)
 api = Api(app)
@@ -56,26 +56,13 @@ class Place(Resource):
     @api.marshal_with(place_model)
     def put(self, place_id):
         # Implémenter la logique de mise à jour d'une place
-        place = data_store.get_place_by_id(place_id)
-        if place:
-            updated_place = request.json
-            updated_place['id'] = place_id
-            index = data_store.data['places'].index(place)
-            data_store.data['places'][index] = updated_place
-            return updated_place, 200
-        else:
-            api.abort(404, message='Place non trouvée')
+        pass
 
     # Supprimer un lieu par son ID
     @api.marshal_with(place_model)
     def delete(self, place_id):
         # Implémenter la logique de suppression d'une place
-        place = data_store.get_place_by_id(place_id)
-        if place:
-            data_store.data['places'].remove(place)
-            return place, 200
-        else:
-            api.abort(404, message='Place non trouvée')
+        pass
 
 if __name__ == '__main__':
     app.run(debug=True)
