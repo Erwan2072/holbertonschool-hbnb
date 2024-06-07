@@ -6,7 +6,8 @@ test the classe country_and_city.py
 
 import json
 import unittest
-from Api_country import Countries, Country, CitiesByCountry, CityList, City
+from resources_city import CityList, City
+from resources_country import Countries, Country, CitiesByCountry
 from app import app
 
 class TestApp(unittest.TestCase):

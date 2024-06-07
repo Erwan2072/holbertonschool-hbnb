@@ -3,6 +3,7 @@
 from flask_restx import Namespace, Resource, fields, reqparse
 from models_city import City, CITIES
 from models_country import COUNTRIES
+from datetime import datetime
 
 api = Namespace('cities', description='City related operations')
 
@@ -71,7 +72,7 @@ class CityDetail(Resource):
 
         city.name = args['name']
         city.country_code = args['country_code']
-        city.updated_at = datetime.utcnow()
+        city.updated_at = datetime()
         return city
 
     @api.response(204, 'City deleted successfully')
