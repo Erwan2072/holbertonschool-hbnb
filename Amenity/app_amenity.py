@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from flask import Flask
+from flask_restx import Resource, Api
 from api_amenity import amenity_api
 
 app = Flask(__name__)
