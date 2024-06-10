@@ -1,13 +1,17 @@
 #!/usr/bin/python3
-"""Contains the API endpoints, defining routes and operations on users"""
+"""Main file for configuring and running the Flask application."""
 
-
-from flask import request
-from flask_restx import Resource, Namespace
+from flask import Flask, request
+from flask_restx import Api, Resource, Namespace
 from User.model_user import create_user_model, create_user_input_model
 from User.data_user import validate_email, find_user
 from User.persistence_user import get_users, add_user, update_user, delete_user
 
+"""Create the Flask application instance"""
+app = Flask(__name__)
+api = Api(app, version='1.0', title='User API', description='A simple User API')
+
+"""Define the Namespace for user operations"""
 ns = Namespace('users', description='User operations')
 
 user_model = create_user_model(ns)
@@ -22,7 +26,6 @@ class UserList(Resource):
         Retrieve a list of all users.
         Returns a list of user objects with status code 200.
         """
-
         return get_users(), 200
 
     @ns.doc('create_user')
@@ -74,9 +77,9 @@ class User(Resource):
         Update an existing user by ID.
         Expects a JSON payload with email, first_name, and last_name.
         Validates the input and checks for uniqueness of the email.
-        Returns the updated user object with status code 200 if successful, else 404 or 409.
+        Returns the updated user object with status code 200 if successful,
+        else 404 or 409.
         """
-
         user = find_user(user_id, get_users())
         if not user:
             return {'message': 'User not found'}, 404
@@ -85,7 +88,8 @@ class User(Resource):
             return {'message': 'Invalid email format'}, 400
         if not data['first_name'] or not data['last_name']:
             return {'message': 'First name and last name cannot be empty'}, 400
-        if any(u['email'] == data['email'] and u['id'] != user_id for u in get_users()):
+        if any(u['email'] == data['email'] and u['id']
+               != user_id for u in get_users()):
             return {'message': 'Email already exists'}, 409
 
         updated_user = update_user(user, data)
@@ -103,3 +107,9 @@ class User(Resource):
             return {'message': 'User not found'}, 404
         delete_user(user)
         return '', 204
+
+"""Add the user namespace to the API"""
+api.add_namespace(ns)
+
+if __name__ == '__main__':
+    app.run(debug=True)
