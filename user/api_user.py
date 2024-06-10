@@ -1,11 +1,18 @@
 #!/usr/bin/python3
 """Main file for configuring and running the Flask application."""
 
+
+import sys
+import os
+
+"""Add the parent directory to PYTHONPATH"""
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'User')))
+
 from flask import Flask, request
 from flask_restx import Api, Resource, Namespace
-from User.model_user import create_user_model, create_user_input_model
-from User.data_user import validate_email, find_user
-from User.persistence_user import get_users, add_user, update_user, delete_user
+from user.model_user import create_user_model, create_user_input_model
+from user.data_user import validate_email, find_user
+from user.persistence_user import get_users, add_user, update_user, delete_user
 
 """Create the Flask application instance"""
 app = Flask(__name__)
