@@ -6,7 +6,7 @@ import sys
 import os
 
 """Add the parent directory to PYTHONPATH"""
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'User')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'user')))
 
 from flask import Flask, request
 from flask_restx import Api, Resource, Namespace
