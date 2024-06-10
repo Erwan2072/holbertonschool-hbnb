@@ -28,8 +28,6 @@ def find_user(user_id):
     users = load_users()
     return next((user for user in users if user['id'] == user_id), None)
 
-# Fonctions supplémentaires selon les besoins
-
 def add_user(data):
     """ Add a new user to the list of users."""
     users = load_users()

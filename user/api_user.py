@@ -5,6 +5,7 @@ from flask import request
 from flask_restx import Resource, Namespace
 from model_user import create_user_model, create_user_input_model
 from data_user import validate_email, find_user
+from persistence_user import get_users, add_user, update_user, delete_user
 
 ns = Namespace('users', description='User operations')
 
