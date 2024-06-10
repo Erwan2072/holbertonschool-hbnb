@@ -72,7 +72,7 @@ class CityDetail(Resource):
 
         city.name = args['name']
         city.country_code = args['country_code']
-        city.updated_at = datetime()
+        city.updated_at = datetime.now().isoformat()
         return city
 
     @api.response(204, 'City deleted successfully')

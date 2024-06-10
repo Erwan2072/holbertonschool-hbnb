@@ -9,8 +9,8 @@ class City:
         self.id = City._id_counter
         self.name = name
         self.country_code = country_code
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+        self.created_at = datetime.now().isoformat()
+        self.updated_at = datetime.now().isoformat()
         City._id_counter += 1
 
 # In-memory database of cities
