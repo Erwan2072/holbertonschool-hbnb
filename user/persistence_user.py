@@ -1,29 +1,42 @@
 #!/usr/bin/python3
 """Manages the persistence of user data in memory."""
 
-
+import json
 from datetime import datetime
 
-users = []
-user_id_counter = 1
+USERS_DATA_FILE = 'users_data.json'
+
+def load_users():
+    """Load the list of all users from the JSON file."""
+    try:
+        with open(USERS_DATA_FILE, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+def save_users(users):
+    """Save the list of users to the JSON file."""
+    with open(USERS_DATA_FILE, 'w') as file:
+        json.dump(users, file, indent=4)
 
 def get_users():
     """Retrieve the list of all users."""
-    return users
+    return load_users()
 
 def add_user(data):
     """ Add a new user to the list of users."""
-    global users, user_id_counter
+    users = get_users()
+    user_id = 1 if not users else max(user['id'] for user in users) + 1
     user = {
-        'id': user_id_counter,
+        'id': user_id,
         'email': data['email'],
         'first_name': data['first_name'],
         'last_name': data['last_name'],
-        'created_at': datetime.strptime(),
-        'updated_at': datetime.strptime()
+        'created_at': datetime.now().isoformat(),
+        'updated_at': datetime.now().isoformat()
     }
     users.append(user)
-    user_id_counter += 1
+    save_users(users)
     return user
 
 def update_user(user, data):
@@ -31,10 +44,11 @@ def update_user(user, data):
     user['email'] = data['email']
     user['first_name'] = data['first_name']
     user['last_name'] = data['last_name']
-    user['updated_at'] = datetime.strptime()
+    user['updated_at'] = datetime.now().isoformat()
+    save_users(get_users())
     return user
 
 def delete_user(user):
     """ Delete a user from the list of users."""
-    global users
     users = [u for u in users if u['id'] != user['id']]
+    save_users(users)
