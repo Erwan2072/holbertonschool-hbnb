@@ -3,8 +3,7 @@ FROM python:3.9-alpine
 
 # Définir les variables d'environnement
 ENV PYTHONUNBUFFERED=1 \
-    APP_HOME=/app \
-    PORT=8000
+    APP_HOME=/app
 
 # Créer le répertoire de travail
 WORKDIR $APP_HOME
@@ -28,7 +27,10 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Exposer le port de l'application
-EXPOSE $PORT
+EXPOSE 8000
+
+# Définir un volume pour la persistance des données
+VOLUME /app/data
 
 # Configurer Gunicorn comme serveur d'application
-CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "console:app"]
