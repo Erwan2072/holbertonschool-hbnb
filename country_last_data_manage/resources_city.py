@@ -3,6 +3,7 @@
 from flask_restx import Namespace, Resource, fields, reqparse
 from models_city import City
 from models_country import Country
+from resources_country import country_model
 from DataManager import DataManager
 from datetime import datetime
 
