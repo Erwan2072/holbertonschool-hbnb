@@ -1,16 +1,21 @@
 #!/usr/bin/python3
-"""API for managing amenities"""
+# API for managing amenities
 
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from data_manager import DataManager
+import uuid
+from datetime import datetime
 
 ns = Namespace('amenities', description='Operations related to amenities')
 data_manager = DataManager()
 
-"""Model definition for an Amenity"""
+# Model definition for an Amenity
 amenity_model = ns.model('Amenity', {
-    'name': fields.String(required=True, description='Amenity name')
+    'id': fields.String(required=True, description='Amenity ID'),
+    'name': fields.String(required=True, description='Amenity name'),
+    'created_at': fields.DateTime(required=True, description='Date and time when the amenity was created'),
+    'updated_at': fields.DateTime(required=True, description='Date and time when the amenity was last updated')
 })
 
 @ns.route('/')
@@ -26,10 +31,13 @@ class Amenities(Resource):
     def post(self):
         """Create a new amenity."""
         new_amenity_data = request.json
+        new_amenity_data['id'] = str(uuid.uuid4())
+        new_amenity_data['created_at'] = datetime.now()
+        new_amenity_data['updated_at'] = datetime.now()
         amenity_id = data_manager.save_amenity(new_amenity_data)
         return {'message': 'Amenity created successfully', 'amenity_id': amenity_id}, 201
 
-@ns.route('/<int:amenity_id>')
+@ns.route('/<string:amenity_id>')
 class AmenityResource(Resource):
     @ns.marshal_with(amenity_model)
     @ns.response(404, 'Amenity not found')
@@ -57,6 +65,8 @@ class AmenityResource(Resource):
     def put(self, amenity_id):
         """Update an existing amenity."""
         new_amenity_data = request.json
+        new_amenity_data['id'] = amenity_id
+        new_amenity_data['updated_at'] = datetime.now()
         if data_manager.update_amenity(amenity_id, new_amenity_data):
             return '', 204
         else:
