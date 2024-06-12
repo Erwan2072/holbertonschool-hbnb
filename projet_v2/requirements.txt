@@ -1,0 +1,11 @@
+"""Flask is a lightweight WSGI web application framework"""
+Flask==2.0.1
+
+"""Flask-RESTx is an extension for Flask that adds support for quickly building REST APIs"""
+flask-restx==0.5.1
+
+"""Gunicorn is a Python WSGI HTTP Server for UNIX"""
+gunicorn==20.1.0
+
+"""Werkzeug is a comprehensive WSGI web application library"""
+werkzeug==2.0.1
