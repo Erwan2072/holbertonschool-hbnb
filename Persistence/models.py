@@ -1,7 +1,6 @@
 #!/usr/bin/env python3v
 
 
-
 class User:
     def __init__(self, user_id, name, email):
         self.user_id = user_id

@@ -86,8 +86,9 @@ class TestDataManager(unittest.TestCase):
         self.assertEqual(updated_city.population, 2200000)
 
     def test_delete_non_existent_entity(self):
-        with self.assertRaises(KeyError):
+        with self.assertRaises(RuntimeError) as context:
             self.data_manager.delete(99, 'User')
+        self.assertIn('User with id 99 does not exist.', str(context.exception))
 
     def test_save_and_delete_city_with_country(self):
         self.country.add_city(self.city)
@@ -164,6 +165,9 @@ class TestDataManager(unittest.TestCase):
         retrieved_user = self.data_manager.get(1, 'User')
         self.assertEqual(retrieved_user.name, "Charlie")
         self.assertEqual(retrieved_user.email, "charlie@example.com")
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
