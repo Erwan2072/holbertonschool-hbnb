@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 # Persistence for amenities
 
-#!/usr/bin/python3
-# Persistence for amenities
-
 import uuid
 from model.amenity import Amenity
 from persistence.ipersistence_manager import IPersistenceManager
