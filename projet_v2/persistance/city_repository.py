@@ -1,20 +1,21 @@
 #!/usr/bin/python3
 # Persistence for cities
 
+import uuid
 from model.city import City
 from persistence.ipersistence_manager import IPersistenceManager
 
+
 class CityRepository(IPersistenceManager):
     """Class for managing the persistence of cities."""
+
     def __init__(self):
         self.cities = {}
-        self.next_id = 1
 
     def save(self, city):
         """Saves a city."""
-        if not hasattr(city, 'city_id'):
-            city.city_id = self.next_id
-            self.next_id += 1
+        if not hasattr(city, 'city_id') or city.city_id is None:
+            city.city_id = str(uuid.uuid4())
         self.cities[city.city_id] = city
 
     def get(self, city_id):

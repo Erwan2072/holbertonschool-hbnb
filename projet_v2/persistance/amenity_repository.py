@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # Persistence for amenities
 
+#!/usr/bin/python3
+# Persistence for amenities
+
+import uuid
 from model.amenity import Amenity
 from persistence.ipersistence_manager import IPersistenceManager
 
@@ -8,13 +12,11 @@ class AmenityRepository(IPersistenceManager):
     """Class for managing the persistence of amenities."""
     def __init__(self):
         self.amenities = {}
-        self.next_id = 1
 
     def save(self, amenity):
         """Saves an amenity."""
-        if not hasattr(amenity, 'amenity_id'):
-            amenity.amenity_id = self.next_id
-            self.next_id += 1
+        if not hasattr(amenity, 'amenity_id') or amenity.amenity_id is None:
+            amenity.amenity_id = str(uuid.uuid4())
         self.amenities[amenity.amenity_id] = amenity
 
     def get(self, amenity_id):
