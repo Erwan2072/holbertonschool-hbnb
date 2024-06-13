@@ -1,50 +1,67 @@
 #!/usr/bin/python3
-import unittest
-from unittest.mock import MagicMock
-import sys
-import os
 
-# Ajouter le répertoire racine du projet au chemin d'importation
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+import unittest
 from model.review import Review
 from review_repository import ReviewRepository
 
 class TestReviewRepository(unittest.TestCase):
+
     def setUp(self):
-        self.repo = ReviewRepository()
-        self.review1 = Review("Great product", "This product exceeded my expectations.", rating=5)
-        self.review2 = Review("Not satisfied", "The product didn't meet my expectations.", rating=2)
-        self.review3 = Review("Average product", "It's okay, but nothing special.", rating=3)
+        self.repository = ReviewRepository()
 
-    def test_save(self):
-        self.repo.save(self.review1)
-        self.assertEqual(len(self.repo.reviews), 1)
+    def test_save_review(self):
+        review = Review("John Doe", "Great product!")
+        self.repository.save(review)
+        self.assertIn(review.review_id, self.repository.reviews)
 
-    def test_get(self):
-        self.repo.save(self.review1)
-        self.repo.save(self.review2)
-        self.assertEqual(self.repo.get(1), self.review1)
-        self.assertEqual(self.repo.get(2), self.review2)
+    def test_save_review_with_existing_id(self):
+        review = Review("Alice", "Very detailed review")
+        review.review_id = 5
+        self.repository.save(review)
+        self.assertEqual(self.repository.reviews[5].author, "Alice")
 
-    def test_get_all(self):
-        self.repo.save(self.review1)
-        self.repo.save(self.review2)
-        self.repo.save(self.review3)
-        self.assertEqual(len(self.repo.get_all()), 3)
+    def test_get_review(self):
+        review = Review("Bob", "Nice service")
+        self.repository.save(review)
+        retrieved_review = self.repository.get(review.review_id)
+        self.assertEqual(retrieved_review.author, "Bob")
 
-    def test_update(self):
-        self.repo.save(self.review1)
-        updated_data = {'title': 'Updated Title', 'content': 'Updated content'}
-        self.assertTrue(self.repo.update(1, updated_data))
-        self.assertEqual(self.repo.get(1).title, 'Updated Title')
-        self.assertEqual(self.repo.get(1).content, 'Updated content')
+    def test_get_review_non_existing_id(self):
+        retrieved_review = self.repository.get(100)
+        self.assertIsNone(retrieved_review)
 
-    def test_delete(self):
-        self.repo.save(self.review1)
-        self.repo.save(self.review2)
-        self.assertTrue(self.repo.delete(1))
-        self.assertEqual(len(self.repo.reviews), 1)
-        self.assertIsNone(self.repo.get(1))
+    def test_get_all_reviews(self):
+        review1 = Review("Alice", "Good experience")
+        review2 = Review("Charlie", "Could be better")
+        self.repository.save(review1)
+        self.repository.save(review2)
+        all_reviews = self.repository.get_all()
+        self.assertEqual(len(all_reviews), 2)
+
+    def test_update_review(self):
+        review = Review("Eve", "Fast delivery")
+        self.repository.save(review)
+        update_data = {"author": "Eve Updated", "content": "Super fast delivery!"}
+        self.repository.update(review.review_id, update_data)
+        updated_review = self.repository.get(review.review_id)
+        self.assertEqual(updated_review.author, "Eve Updated")
+        self.assertEqual(updated_review.content, "Super fast delivery!")
+
+    def test_update_non_existing_review(self):
+        update_data = {"author": "Nonexistent", "content": "This shouldn't work"}
+        result = self.repository.update(100, update_data)
+        self.assertFalse(result)
+
+    def test_delete_review(self):
+        review = Review("Mallory", "Bad experience, wouldn't recommend")
+        self.repository.save(review)
+        self.repository.delete(review.review_id)
+        deleted_review = self.repository.get(review.review_id)
+        self.assertIsNone(deleted_review)
+
+    def test_delete_non_existing_review(self):
+        result = self.repository.delete(100)
+        self.assertFalse(result)
 
 if __name__ == '__main__':
     unittest.main()

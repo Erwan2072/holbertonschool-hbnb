@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 import sys
 import os
 
+
 # Ajouter le répertoire racine du projet au chemin d'importation
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 
@@ -11,6 +12,7 @@ from model.city import City
 from persistence.city_repository import CityRepository
 import uuid
 from datetime import datetime
+
 
 class TestCityRepository(unittest.TestCase):
 

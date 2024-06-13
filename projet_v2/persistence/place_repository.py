@@ -40,3 +40,4 @@ class PlaceRepository(IPersistenceManager):
             del self.places[place_id]
             return True
         return False
+

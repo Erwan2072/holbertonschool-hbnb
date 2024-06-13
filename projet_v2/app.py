@@ -9,7 +9,7 @@ from api.api_review import ns as api_review
 from api.api_amenity import ns as api_amenity
 from api.api_country import ns as api_country
 from api.api_city import ns as api_city
-
+    
 app = Flask(__name__)
 ns = Api(app)
 

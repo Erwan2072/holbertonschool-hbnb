@@ -40,3 +40,10 @@ class PlaceRepository(IPersistenceManager):
             del self.places[place_id]
             return True
         return False
+
+    def setUp(self):
+        self.repository = PlaceRepository()
+        self.place1 = Place("Address 1", "City ID 1", 1.234, 5.678, "Host ID 1", 3, 2, 100, 4, [1, 2, 3])
+        self.place2 = Place("Address 2", "City ID 2", 3.456, 7.890, "Host ID 2", 4, 3, 150, 6, [4, 5, 6])
+        self.repository.save(self.place1)
+        self.repository.save(self.place2)
