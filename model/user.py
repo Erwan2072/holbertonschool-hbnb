@@ -4,13 +4,16 @@
 import uuid
 from datetime import datetime
 
+
 class User:
     """Class representing a user."""
     def __init__(self, username, email, password):
-        self.user_id = str(uuid.uuid4())  # Generate a UUID4 for unique identification
+        # Generate a UUID4 for unique identification
+        self.user_id = str(uuid.uuid4())
         self.username = username
         self.email = email
-        self.password = password  # In a real-world scenario, hash the password before storing it
+        # In a real-world scenario, hash the password before storing it
+        self.password = password
         self.created_at = datetime.now()  # Record creation timestamp
         self.updated_at = datetime.now()  # Record update timestamp
         self.reviews = []
@@ -30,7 +33,8 @@ class User:
 
     def check_password(self, password):
         """Checks if the password is correct."""
-        return self.password == password  # In a real-world scenario, compare hashed passwords
+        # In a real-world scenario, compare hashed passwords
+        return self.password == password
 
     def to_dict(self):
         """Returns the user data as a dictionary."""
@@ -38,7 +42,9 @@ class User:
             'user_id': self.user_id,
             'username': self.username,
             'email': self.email,
-            'created_at': self.created_at.isoformat(),  # Convert datetime to ISO 8601 format
-            'updated_at': self.updated_at.isoformat(),  # Convert datetime to ISO 8601 format
+            # Convert datetime to ISO 8601 format
+            'created_at': self.created_at.isoformat(),
+            # Convert datetime to ISO 8601 format
+            'updated_at': self.updated_at.isoformat(),
             'reviews': self.reviews
         }

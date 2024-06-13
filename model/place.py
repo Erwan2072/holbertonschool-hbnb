@@ -1,9 +1,15 @@
 #!/usr/bin/python3
 """Model for representing places."""
 
+
 class Place:
     """Class representing a place."""
-    def __init__(self, name, description, address, city_id, latitude, longitude, host_id, number_of_rooms, number_of_bathrooms, price_per_night, max_guests, amenity_ids):
+
+    def __init__(
+        self, name, description, address, city_id, latitude, longitude,
+        host_id, number_of_rooms, number_of_bathrooms, price_per_night,
+        max_guests, amenity_ids
+    ):
         self.place_id = None
         self.name = name
         self.description = description

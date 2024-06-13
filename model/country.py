@@ -4,11 +4,13 @@
 import uuid
 from datetime import datetime
 
+
 class Country:
     """Class representing a country."""
     def __init__(self, name):
-        self.country_id = str(uuid.uuid4())  # Generate a UUID4 for unique identification
+        # Generate a UUID4 for unique identification
         self.name = name
+        self.country_id = str(uuid.uuid4())
         self.created_at = datetime.now()  # Record creation timestamp
         self.updated_at = datetime.now()  # Record update timestamp
 
@@ -17,6 +19,8 @@ class Country:
         return {
             'country_id': self.country_id,
             'name': self.name,
-            'created_at': self.created_at.isoformat(),  # Convert datetime to ISO 8601 format
-            'updated_at': self.updated_at.isoformat()  # Convert datetime to ISO 8601 format
+            # Convert datetime to ISO 8601 format
+            'created_at': self.created_at.isoformat(),
+            # Convert datetime to ISO 8601 format
+            'updated_at': self.updated_at.isoformat()
         }
