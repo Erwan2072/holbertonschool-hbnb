@@ -2,7 +2,7 @@
 # Persistence for amenities
 
 import uuid
-from projet_v2.model.amenity import Amenity
+from model.amenity import Amenity
 from persistence.ipersistence_manager import IPersistenceManager
 
 
