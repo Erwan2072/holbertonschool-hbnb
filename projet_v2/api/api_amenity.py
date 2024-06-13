@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# API for managing amenities
+"""API for managing amenities"""
 
 from flask import request
 from flask_restx import Namespace, Resource, fields
@@ -10,7 +10,7 @@ from datetime import datetime
 ns = Namespace('amenities', description='Operations related to amenities')
 data_manager = DataManager()
 
-# Model definition for an Amenity
+"""Model definition for an Amenity"""
 amenity_model = ns.model('Amenity', {
     'id': fields.String(required=True, description='Amenity ID'),
     'name': fields.String(required=True, description='Amenity name'),
