@@ -2,12 +2,12 @@ import unittest
 from unittest.mock import patch, MagicMock
 import sys
 import os
-
-# Ajouter le répertoire parent au sys.path pour que les modules puissent être importés
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from model.amenity import Amenity
 from data_manager import DataManager
+# Add le répertoire parent au sys.path for modules puissent être importés
+sys.path.insert(0, os.path.abspath(os.path.join
+                                   (os.path.dirname(__file__), '..')))
+
 
 class TestDataManager(unittest.TestCase):
     def setUp(self):
@@ -62,7 +62,8 @@ class TestDataManager(unittest.TestCase):
         mock_update_amenity.return_value = False
         result = self.data_manager.update_amenity(999, {'name': 'Nonexistent'})
         self.assertFalse(result)
-        mock_update_amenity.assert_called_once_with(999, {'name': 'Nonexistent'})
+        mock_update_amenity.assert_called_once_with(999,
+                                                    {'name': 'Nonexistent'})
 
     @patch.object(DataManager, 'delete_amenity')
     def test_delete_nonexistent_amenity(self, mock_delete_amenity):
@@ -70,6 +71,7 @@ class TestDataManager(unittest.TestCase):
         result = self.data_manager.delete_amenity(999)
         self.assertFalse(result)
         mock_delete_amenity.assert_called_once_with(999)
+
 
 if __name__ == '__main__':
     unittest.main()

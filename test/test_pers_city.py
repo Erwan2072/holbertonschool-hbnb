@@ -2,12 +2,13 @@ import unittest
 from unittest.mock import patch, MagicMock
 import sys
 import os
-
-# Assurez-vous que le répertoire parent est dans le chemin d'importation
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from model.city import City
 from data_manager import DataManager
+
+# Assurez-vous que le répertoire parent est dans le chemin d'importation
+sys.path.insert(0, os.path.abspath(os.path.join
+                                   (os.path.dirname(__file__), '..')))
+
 
 class TestCityRepository(unittest.TestCase):
     def setUp(self):
@@ -31,7 +32,8 @@ class TestCityRepository(unittest.TestCase):
 
     @patch.object(DataManager, 'get_all_cities')
     def test_get_all_cities(self, mock_get_all_cities):
-        mock_cities = [City(name='Paris', country_id=1), City(name='London', country_id=2)]
+        mock_cities = [City(name='Paris', country_id=1),
+                       City(name='London', country_id=2)]
         mock_get_all_cities.return_value = mock_cities
         cities = self.data_manager.get_all_cities()
         self.assertEqual(len(cities), 2)
@@ -67,6 +69,7 @@ class TestCityRepository(unittest.TestCase):
         result = self.data_manager.delete_city(999)
         self.assertFalse(result)
         mock_delete_city.assert_called_once_with(999)
+
 
 if __name__ == '__main__':
     unittest.main()
