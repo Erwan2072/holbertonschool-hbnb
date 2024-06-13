@@ -12,13 +12,32 @@ data_manager = DataManager()
 
 # Model definition for a User
 user_model = ns.model('User', {
-    'id': fields.String(required=True, description='User ID'),
-    'username': fields.String(required=True, description='Username'),
-    'email': fields.String(required=True, description='Email'),
-    'password': fields.String(required=True, description='Password'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the user was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the user was last updated')
+    'id': fields.String(
+        required=True,
+        description='User ID'
+    ),
+    'username': fields.String(
+        required=True,
+        description='Username'
+    ),
+    'email': fields.String(
+        required=True,
+        description='Email'
+    ),
+    'password': fields.String(
+        required=True,
+        description='Password'
+    ),
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the user was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the user was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Users(Resource):
@@ -37,7 +56,11 @@ class Users(Resource):
         new_user_data['created_at'] = datetime.now()
         new_user_data['updated_at'] = datetime.now()
         user_id = data_manager.save_user(new_user_data)
-        return {'message': 'User created successfully', 'user_id': user_id}, 201
+        return {
+            'message': 'User created successfully',
+            'user_id': user_id
+        }, 201
+
 
 @ns.route('/<string:user_id>')
 class UserResource(Resource):

@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 # API for managing reviews
 
@@ -13,14 +12,35 @@ data_manager = DataManager()
 
 # Model definition for a Review
 review_model = ns.model('Review', {
-    'id': fields.String(required=True, description='Review ID'),
-    'user_id': fields.Integer(required=True, description='User ID'),
-    'place_id': fields.Integer(required=True, description='Place ID'),
-    'rating': fields.Integer(required=True, description='Rating'),
-    'comment': fields.String(description='Comment'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the review was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the review was last updated')
+    'id': fields.String(
+        required=True,
+        description='Review ID'
+    ),
+    'user_id': fields.Integer(
+        required=True,
+        description='User ID'
+    ),
+    'place_id': fields.Integer(
+        required=True,
+        description='Place ID'
+    ),
+    'rating': fields.Integer(
+        required=True,
+        description='Rating'
+    ),
+    'comment': fields.String(
+        description='Comment'
+    ),
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the review was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the review was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Reviews(Resource):
@@ -39,7 +59,11 @@ class Reviews(Resource):
         new_review_data['created_at'] = datetime.now()
         new_review_data['updated_at'] = datetime.now()
         review_id = data_manager.save_review(new_review_data)
-        return {'message': 'Review created successfully', 'review_id': review_id}, 201
+        return {
+            'message': 'Review created successfully',
+            'review_id': review_id
+        }, 201
+
 
 @ns.route('/<string:review_id>')
 class ReviewResource(Resource):

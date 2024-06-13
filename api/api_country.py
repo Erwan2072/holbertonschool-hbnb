@@ -12,11 +12,24 @@ data_manager = DataManager()
 
 # Model definition for a Country
 country_model = ns.model('Country', {
-    'id': fields.String(required=True, description='Country ID'),
-    'name': fields.String(required=True, description='Country name'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the country was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the country was last updated')
+    'id': fields.String(
+        required=True,
+        description='Country ID'
+    ),
+    'name': fields.String(
+        required=True,
+        description='Country name'
+    ),
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the country was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the country was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Countries(Resource):
@@ -35,7 +48,11 @@ class Countries(Resource):
         new_country_data['created_at'] = datetime.now()
         new_country_data['updated_at'] = datetime.now()
         country_id = data_manager.save_country(new_country_data)
-        return {'message': 'Country created successfully', 'country_id': country_id}, 201
+        return {
+            'message': 'Country created successfully',
+            'country_id': country_id
+        }, 201
+
 
 @ns.route('/<string:country_id>')
 class CountryResource(Resource):

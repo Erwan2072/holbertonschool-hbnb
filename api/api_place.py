@@ -12,22 +12,58 @@ data_manager = DataManager()
 
 # Model definition for a Place
 place_model = ns.model('Place', {
-    'id': fields.String(required=True, description='Place ID'),
-    'name': fields.String(required=True, description='Place name'),
-    'description': fields.String(description='Place description'),
-    'address': fields.String(description='Place address'),
-    'city_id': fields.Integer(description='City ID'),
-    'latitude': fields.Float(description='Latitude'),
-    'longitude': fields.Float(description='Longitude'),
-    'host_id': fields.Integer(description='Host ID'),
-    'number_of_rooms': fields.Integer(description='Number of rooms'),
-    'number_of_bathrooms': fields.Integer(description='Number of bathrooms'),
-    'price_per_night': fields.Float(description='Price per night'),
-    'max_guests': fields.Integer(description='Maximum number of guests'),
-    'amenity_ids': fields.List(fields.String, description='List of amenity IDs'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the place was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the place was last updated')
+    'id': fields.String(
+        required=True,
+        description='Place ID'
+    ),
+    'name': fields.String(
+        required=True,
+        description='Place name'
+    ),
+    'description': fields.String(
+        description='Place description'
+    ),
+    'address': fields.String(
+        description='Place address'
+    ),
+    'city_id': fields.Integer(
+        description='City ID'
+    ),
+    'latitude': fields.Float(
+        description='Latitude'
+    ),
+    'longitude': fields.Float(
+        description='Longitude'
+    ),
+    'host_id': fields.Integer(
+        description='Host ID'
+    ),
+    'number_of_rooms': fields.Integer(
+        description='Number of rooms'
+    ),
+    'number_of_bathrooms': fields.Integer(
+        description='Number of bathrooms'
+    ),
+    'price_per_night': fields.Float(
+        description='Price per night'
+    ),
+    'max_guests': fields.Integer(
+        description='Maximum number of guests'
+    ),
+    'amenity_ids': fields.List(
+        fields.String,
+        description='List of amenity IDs'
+    ),
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the place was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the place was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Places(Resource):
@@ -46,7 +82,11 @@ class Places(Resource):
         new_place_data['created_at'] = datetime.now()
         new_place_data['updated_at'] = datetime.now()
         place_id = data_manager.save_place(new_place_data)
-        return {'message': 'Place created successfully', 'place_id': place_id}, 201
+        return {
+            'message': 'Place created successfully',
+            'place_id': place_id
+        }, 201
+
 
 @ns.route('/<string:place_id>')
 class PlaceResource(Resource):

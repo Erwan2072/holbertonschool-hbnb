@@ -12,11 +12,24 @@ data_manager = DataManager()
 
 """Model definition for an Amenity"""
 amenity_model = ns.model('Amenity', {
-    'id': fields.String(required=True, description='Amenity ID'),
-    'name': fields.String(required=True, description='Amenity name'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the amenity was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the amenity was last updated')
+    'id': fields.String(
+        required=True,
+        description='Amenity ID'
+    ),
+    'name': fields.String(
+        required=True,
+        description='Amenity name'
+    ),
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the amenity was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the amenity was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Amenities(Resource):
@@ -35,7 +48,11 @@ class Amenities(Resource):
         new_amenity_data['created_at'] = datetime.now()
         new_amenity_data['updated_at'] = datetime.now()
         amenity_id = data_manager.save_amenity(new_amenity_data)
-        return {'message': 'Amenity created successfully', 'amenity_id': amenity_id}, 201
+        return {
+            'message': 'Amenity created successfully',
+            'amenity_id': amenity_id
+        }, 201
+
 
 @ns.route('/<string:amenity_id>')
 class AmenityResource(Resource):

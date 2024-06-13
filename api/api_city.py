@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 # API for managing cities
 
@@ -16,9 +15,16 @@ city_model = ns.model('City', {
     'id': fields.String(required=True, description='City ID'),
     'name': fields.String(required=True, description='City name'),
     'country_id': fields.Integer(required=True, description='Country ID'),
-    'created_at': fields.DateTime(required=True, description='Date and time when the city was created'),
-    'updated_at': fields.DateTime(required=True, description='Date and time when the city was last updated')
+    'created_at': fields.DateTime(
+        required=True,
+        description='Date and time when the city was created'
+    ),
+    'updated_at': fields.DateTime(
+        required=True,
+        description='Date and time when the city was last updated'
+    )
 })
+
 
 @ns.route('/')
 class Cities(Resource):
@@ -37,7 +43,11 @@ class Cities(Resource):
         new_city_data['created_at'] = datetime.now()
         new_city_data['updated_at'] = datetime.now()
         city_id = data_manager.save_city(new_city_data)
-        return {'message': 'City created successfully', 'city_id': city_id}, 201
+        return {
+            'message': 'City created successfully',
+            'city_id': city_id
+        }, 201
+
 
 @ns.route('/<string:city_id>')
 class CityResource(Resource):
