@@ -148,9 +148,11 @@ docker build -t hbnb-evolution .
 2. Run the Docker container:
 
 ```
-docker run -p 5000:5000 -v $(pwd)/data:/app/data --env PORT=5000 hbnb-evolution
+docker run -p 8001:8000 -v $(pwd)/data:/app/data --env PORT=8000 holbertonschool-hbnb
 
 ```
 
 ### Contributing
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
+Marc Cornabas     [Grilindor](https://github.com/Grilindor)
+Antonin Paillasse [Antonin-crypto](https://github.com/Antonin-crypto)
+Erwan lebreton    [@Erwan2072](https://github.com/Erwan2072)
