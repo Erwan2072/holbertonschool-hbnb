@@ -1,46 +1,76 @@
 #!/usr/bin/python3
-# Persistence for amenities
+import unittest
+from unittest.mock import patch, MagicMock
+import sys
+import os
+
+# Ajouter le répertoire parent au sys.path pour que les modules puissent être importés
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from model.amenity import Amenity
-from persistence.ipersistence_manager import IPersistenceManager
+from data_manager import DataManager
 
+class TestDataManager(unittest.TestCase):
+    def setUp(self):
+        self.data_manager = DataManager()
 
-class AmenityRepository(IPersistenceManager):
-    """Class for managing the persistence of amenities."""
-    def __init__(self):
-        self.amenities = {}
-        self.next_id = 1
+    @patch.object(DataManager, 'save_amenity')
+    def test_save_amenity(self, mock_save_amenity):
+        mock_save_amenity.return_value = '1'
+        new_amenity_data = {'name': 'Pool'}
+        amenity_id = self.data_manager.save_amenity(new_amenity_data)
+        self.assertEqual(amenity_id, '1')
+        mock_save_amenity.assert_called_once_with(new_amenity_data)
 
-    def save(self, amenity):
-        """Saves an amenity."""
-        if not isinstance(amenity, Amenity):
-            raise ValueError("Object is not an instance of Amenity")
+    @patch.object(DataManager, 'get_amenity')
+    def test_get_amenity(self, mock_get_amenity):
+        mock_amenity = Amenity(name='WiFi')
+        mock_get_amenity.return_value = mock_amenity
+        amenity = self.data_manager.get_amenity(1)
+        self.assertEqual(amenity.name, 'WiFi')
+        mock_get_amenity.assert_called_once_with(1)
 
-        if amenity.amenity_id is None:
-            amenity.amenity_id = self.next_id
-            self.next_id += 1
+    @patch.object(DataManager, 'get_all_amenities')
+    def test_get_all_amenities(self, mock_get_all_amenities):
+        mock_amenities = [
+            Amenity(name='Pool'),
+            Amenity(name='WiFi')
+        ]
+        mock_get_all_amenities.return_value = mock_amenities
+        amenities = self.data_manager.get_all_amenities()
+        self.assertEqual(len(amenities), 2)
+        self.assertEqual(amenities[0].name, 'Pool')
+        self.assertEqual(amenities[1].name, 'WiFi')
+        mock_get_all_amenities.assert_called_once()
 
-        self.amenities[amenity.amenity_id] = amenity
+    @patch.object(DataManager, 'update_amenity')
+    def test_update_amenity(self, mock_update_amenity):
+        mock_update_amenity.return_value = True
+        updated_data = {'name': 'Updated Gym'}
+        result = self.data_manager.update_amenity(1, updated_data)
+        self.assertTrue(result)
+        mock_update_amenity.assert_called_once_with(1, updated_data)
 
-    def get(self, amenity_id):
-        """Fetches an amenity."""
-        return self.amenities.get(amenity_id)
+    @patch.object(DataManager, 'delete_amenity')
+    def test_delete_amenity(self, mock_delete_amenity):
+        mock_delete_amenity.return_value = True
+        result = self.data_manager.delete_amenity(1)
+        self.assertTrue(result)
+        mock_delete_amenity.assert_called_once_with(1)
 
-    def get_all(self):
-        """Fetches all amenities."""
-        return list(self.amenities.values())
+    @patch.object(DataManager, 'update_amenity')
+    def test_update_nonexistent_amenity(self, mock_update_amenity):
+        mock_update_amenity.return_value = False
+        result = self.data_manager.update_amenity(999, {'name': 'Nonexistent'})
+        self.assertFalse(result)
+        mock_update_amenity.assert_called_once_with(999, {'name': 'Nonexistent'})
 
-    def update(self, amenity_id, new_amenity_data):
-        """Updates an existing amenity."""
-        amenity = self.amenities.get(amenity_id)
-        if amenity:
-            amenity.update_from_dict(new_amenity_data)
-            return True
-        return False
+    @patch.object(DataManager, 'delete_amenity')
+    def test_delete_nonexistent_amenity(self, mock_delete_amenity):
+        mock_delete_amenity.return_value = False
+        result = self.data_manager.delete_amenity(999)
+        self.assertFalse(result)
+        mock_delete_amenity.assert_called_once_with(999)
 
-    def delete(self, amenity_id):
-        """Deletes an existing amenity."""
-        if amenity_id in self.amenities:
-            del self.amenities[amenity_id]
-            return True
-        return False
+if __name__ == '__main__':
+    unittest.main()
