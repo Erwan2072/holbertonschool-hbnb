@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-# Persistence for countries
+""" Persistence for countries"""
 
 from model.country import Country
 from persistence.ipersistence_manager import IPersistenceManager
+
 
 class CountryRepository(IPersistenceManager):
     """Class for managing the persistence of countries."""
 
     def __init__(self):
-        """Initializes the CountryRepository with an empty dictionary and a next_id counter."""
+        """Initializes the CountryRepository with an empty
+        dictionary and a next_id counter.
+        """
         self.countries = {}
         self.next_id = 1
 
@@ -50,8 +53,10 @@ class CountryRepository(IPersistenceManager):
         Updates an existing country.
 
         Args:
-            country_id (int): The unique identifier of the country to be updated.
-            new_country_data (dict): A dictionary containing the new data for the country.
+            country_id (int): The unique identifier of
+            the country to be updated.
+            new_country_data (dict): A dictionary containing
+            the new data for the country.
 
         Returns:
             bool: True if the update was successful, False otherwise.
@@ -69,7 +74,8 @@ class CountryRepository(IPersistenceManager):
         Deletes an existing country.
 
         Args:
-            country_id (int): The unique identifier of the country to be deleted.
+            country_id (int): The unique identifier of
+            the country to be deleted.
 
         Returns:
             bool: True if the deletion was successful, False otherwise.

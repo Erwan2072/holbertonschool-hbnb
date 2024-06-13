@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-# Persistence for places
+"""Persistence for places"""
 
 from model.place import Place
 from persistence.ipersistence_manager import IPersistenceManager
+
 
 class PlaceRepository(IPersistenceManager):
     """Class for managing the persistence of places."""
 
     def __init__(self):
-        """Initializes the PlaceRepository with an empty dictionary and a next_id counter."""
+        """Initializes the PlaceRepository with an empty
+        dictionary and a next_id counter.
+        """
         self.places = {}
         self.next_id = 1
 
@@ -51,7 +54,8 @@ class PlaceRepository(IPersistenceManager):
 
         Args:
             place_id (int): The unique identifier of the place to be updated.
-            new_place_data (dict): A dictionary containing the new data for the place.
+            new_place_data (dict): A dictionary containing
+            the new data for the place.
 
         Returns:
             bool: True if the update was successful, False otherwise.

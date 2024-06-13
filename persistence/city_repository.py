@@ -10,7 +10,9 @@ class CityRepository(IPersistenceManager):
     """Class for managing the persistence of cities."""
 
     def __init__(self):
-        """Initializes the CityRepository with an empty dictionary to store cities."""
+        """Initializes the CityRepository with an empty dictionary
+        to store cities.
+        """
         self.cities = {}
 
     def save(self, city):
@@ -51,7 +53,8 @@ class CityRepository(IPersistenceManager):
 
         Args:
             city_id (str): The unique identifier of the city to be updated.
-            new_city_data (dict): A dictionary containing the new data for the city.
+            new_city_data (dict): A dictionary containing the new
+            data for the city.
 
         Returns:
             bool: True if the update was successful, False otherwise.

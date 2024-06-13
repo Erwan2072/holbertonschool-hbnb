@@ -3,6 +3,7 @@
 
 from abc import ABC, abstractmethod
 
+
 class IPersistenceManager(ABC):
     """Interface for defining persistence manager methods."""
 
@@ -35,8 +36,10 @@ class IPersistenceManager(ABC):
         Updates an existing entity.
 
         Args:
-            entity_id (str/int): The unique identifier of the entity to be updated.
-            new_data (dict): A dictionary containing the new data for the entity.
+            entity_id (str/int): The unique identifier of
+            the entity to be updated.
+            new_data (dict): A dictionary containing
+            the new data for the entity.
 
         Returns:
             bool: True if the update was successful, False otherwise.
@@ -49,7 +52,8 @@ class IPersistenceManager(ABC):
         Deletes an existing entity.
 
         Args:
-            entity_id (str/int): The unique identifier of the entity to be deleted.
+            entity_id (str/int): The unique identifier
+            of the entity to be deleted.
 
         Returns:
             bool: True if the deletion was successful, False otherwise.

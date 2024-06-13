@@ -4,11 +4,14 @@
 from model.review import Review
 from persistence.ipersistence_manager import IPersistenceManager
 
+
 class ReviewRepository(IPersistenceManager):
     """Class for managing the persistence of reviews."""
 
     def __init__(self):
-        """Initializes the ReviewRepository with an empty dictionary and a next_id counter."""
+        """Initializes the ReviewRepository with an empty
+        dictionary and a next_id counter.
+        """
         self.reviews = {}
         self.next_id = 1
 
@@ -50,8 +53,10 @@ class ReviewRepository(IPersistenceManager):
         Updates an existing review.
 
         Args:
-            review_id (int): The unique identifier of the review to be updated.
-            new_review_data (dict): A dictionary containing the new data for the review.
+            review_id (int): The unique identifier
+            of the review to be updated.
+            new_review_data (dict): A dictionary containing
+            the new data for the review.
 
         Returns:
             bool: True if the update was successful, False otherwise.

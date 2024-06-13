@@ -4,11 +4,14 @@
 from model.user import User
 from persistence.ipersistence_manager import IPersistenceManager
 
+
 class UserRepository(IPersistenceManager):
     """Class for managing the persistence of users."""
 
     def __init__(self):
-        """Initializes the UserRepository with an empty dictionary and a next_id counter."""
+        """Initializes the UserRepository with an empty
+        dictionary and a next_id counter.
+        """
         self.users = {}
         self.next_id = 1
 
@@ -51,7 +54,8 @@ class UserRepository(IPersistenceManager):
 
         Args:
             user_id (int): The unique identifier of the user to be updated.
-            new_user_data (dict): A dictionary containing the new data for the user.
+            new_user_data (dict): A dictionary containing
+            the new data for the user.
 
         Returns:
             bool: True if the update was successful, False otherwise.

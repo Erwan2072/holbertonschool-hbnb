@@ -5,18 +5,21 @@ import uuid
 from projet_v2.model.amenity import Amenity
 from persistence.ipersistence_manager import IPersistenceManager
 
+
 class AmenityRepository(IPersistenceManager):
     """Class for managing the persistence of amenities."""
 
     def __init__(self):
-        """Initializes the AmenityRepository with an empty dictionary to store amenities."""
+        """Initializes the AmenityRepository with an empty
+        dictionary to store amenities."""
         self.amenities = {}
 
     def save(self, amenity):
         """
         Saves an amenity.
 
-        If the amenity does not have an amenity_id, a new unique ID is generated.
+        If the amenity does not have an amenity_id,
+        a new unique ID is generated.
         The amenity is then stored in the amenities dictionary.
         """
         if not hasattr(amenity, 'amenity_id') or amenity.amenity_id is None:
@@ -49,8 +52,10 @@ class AmenityRepository(IPersistenceManager):
         Updates an existing amenity.
 
         Args:
-            amenity_id (str): The unique identifier of the amenity to be updated.
-            new_amenity_data (dict): A dictionary containing the new data for the amenity.
+            amenity_id (str): The unique identifier of
+            the amenity to be updated.
+            new_amenity_data (dict): A dictionary containing
+            the new data for the amenity.
 
         Returns:
             bool: True if the update was successful, False otherwise.
@@ -68,7 +73,8 @@ class AmenityRepository(IPersistenceManager):
         Deletes an existing amenity.
 
         Args:
-            amenity_id (str): The unique identifier of the amenity to be deleted.
+            amenity_id (str): The unique identifier of
+            the amenity to be deleted.
 
         Returns:
             bool: True if the deletion was successful, False otherwise.
