@@ -39,7 +39,7 @@ Key entities in our data model include Places, Users, Reviews, Amenities, Countr
 
 Here is a UML diagram representing the core entities and their relationships:
 
-![UML Diagram](path/to/your/uml_diagram.png)
+<img src ="https://github.com/Erwan2072/holbertonschool-hbnb/blob/main/ulm%20modified%20test.png">
 
 **Entities**:
 
