@@ -33,4 +33,4 @@ EXPOSE 8000
 VOLUME /app/data
 
 # Configurer Gunicorn comme serveur d'application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "console:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]

@@ -10,8 +10,8 @@ from api.api_amenity import ns as api_amenity
 from api.api_country import ns as api_country
 from api.api_city import ns as api_city
 
-console = Flask(__name__)
-ns = Api(console)
+app = Flask(__name__)
+ns = Api(app)
 
 # Adding namespaces for each entity
 ns.add_namespace(api_place, path='/places')
@@ -26,7 +26,7 @@ import os
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    console.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port)
 
 #Docker
 #    app.run(debug=True)
