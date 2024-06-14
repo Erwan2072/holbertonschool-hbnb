@@ -156,3 +156,5 @@ docker run -p 8001:8000 -v $(pwd)/data:/app/data --env PORT=8000 holbertonschool
 Marc Cornabas     [Grilindor](https://github.com/Grilindor)
 Antonin Paillasse [Antonin-crypto](https://github.com/Antonin-crypto)
 Erwan lebreton    [@Erwan2072](https://github.com/Erwan2072)
+
+And our SWE we love :heart: Axel Goré :heart:
